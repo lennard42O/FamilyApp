@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center"></div>
+        <div class="col-md-6">
+            <h1 class="text-center">Registrierung</h1>
+            <form method="post" class="mt-4">
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="alert alter-danger">
+                {% for field, errors in form.errors.items %}
+                    {% for errors in errors %}
+                        {{ error }} <br>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Benutzername</label>
+                <input type="text" name="username" class="form-control" id="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password1" class="form-label">Passwort</label>
+                    <input type="text" name="password1" class="form-control" id="password" requierd>
+                </div>
+                <div class="mb-3">
+                    <label for="password2" class="form-label">Password bestätigen</label>
+                    <input type="text" name="password2" class="form-control" id="password2" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrieren</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
