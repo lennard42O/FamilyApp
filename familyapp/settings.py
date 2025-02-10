@@ -82,13 +82,7 @@ if DATABASE_URL:
             }
         }
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / "db.sqlite3",
-        }
-    }
+
 
 # Passwortvalidierung
 AUTH_PASSWORD_VALIDATORS = [
@@ -105,10 +99,23 @@ USE_I18N = True
 USE_TZ = True
 
 # Statische Dateien
-STATIC_URL = "static/"
+STATIC_URL = "/static/"  
+
+# Django sagen, wo der 'static/'-Ordner liegt
+STATICFILES_DIRS = [
+    BASE_DIR / "familyapp" / "static",  # Den Pfad zur Static-Ordner anpassen
+]
+
+# Wohin 'collectstatic' die Dateien speichert
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Primärer Schlüsseltyp
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Benutzerdefiniertes User-Modell
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+# Weiterleitung nach dem Login
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

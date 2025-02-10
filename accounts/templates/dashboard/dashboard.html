@@ -2,8 +2,55 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1>Wilkommen, {{ request.user.username }}!</h1>
-    <p>Das ist dein Dashboard.</p>
-    <a href="register" class="btn btn-primary">Register</a>
-</div>
+    <h1 class="text-center">Willkommen, {{ request.user.username }}!</h1>
+    <p class="text-center">Das ist dein Dashboard.</p>
+  
+    <div class="mt-4">
+      <!-- Hier kommt das Grid -->
+      <div class="grid">
+        <div class="card">
+          {% load static %}
+          <img
+            src="{% static 'img/list.png' %}"
+            class="card-img-top"
+            alt="Einkaufsliste"
+          />
+          <div class="card-body">
+            <a href="../shopping" class="btn btn-primary">zur Einkaufsliste</a>
+          </div>
+        </div>
+        <div class="card">
+          <img
+            src="{% static 'img/list.png' %}"
+            class="card-img-top"
+            alt="Einkaufsliste"
+          />
+          <div class="card-body">
+            <a href="../shopping" class="btn btn-primary">zur Einkaufsliste</a>
+          </div>
+        </div>
+        <div class="card">
+          <img
+            src="{% static 'img/list.png' %}"
+            class="card-img-top"
+            alt="Einkaufsliste"
+          />
+          <div class="card-body">
+            <a href="../shopping" class="btn btn-primary">zur Einkaufsliste</a>
+          </div>
+        </div>
+        <div class="card">
+          <img
+            src="{% static 'img/list.png' %}"
+            class="card-img-top"
+            alt="Einkaufsliste"
+          />
+          <div class="card-body">
+            <a href="../shopping" class="btn btn-primary">zur Einkaufsliste</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 {% endblock %}

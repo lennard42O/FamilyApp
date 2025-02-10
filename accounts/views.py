@@ -8,10 +8,12 @@ def register(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # Weiterleitung zur Login-Seite
+            return redirect('dashboard')  
     else:
         form = CustomUserCreationForm()
     return render(request, 'accounts/register.html', {'form': form})
 def dashboard(request):
     return render(request, "dashboard/dashboard.html")
-# Create your views here
+
+def profile(request):
+    return render(request, "account/profile.html")

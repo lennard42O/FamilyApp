@@ -8,9 +8,9 @@
             <form method="post" class="mt-4">
             {% csrf_token %}
             {% if form.errors %}
-            <div class="alert alter-danger">
+            <div class="alert alert-danger">
                 {% for field, errors in form.errors.items %}
-                    {% for errors in errors %}
+                    {% for error in errors %}
                         {{ error }} <br>
                     {% endfor %}
                 {% endfor %}
