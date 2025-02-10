@@ -13,6 +13,7 @@ def register(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'accounts/register.html', {'form': form})
+@login_required
 def dashboard(request):
     family_members = request.user.family_members.all()
     return render(request, 'dashboard/dashboard.html', {'family_members': family_members})

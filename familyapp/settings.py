@@ -119,3 +119,4 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 # Weiterleitung nach dem Login
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'  # URL der Login-Seite
