@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Familienmitglied hinzufügen</h1>
+    {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="username" class="form-label">Benutzername</label>
+            <input type="text" name="username" class="form-control" id="username"  required>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Hinzufügen</button>
+    </form>
+</div>
+{% endblock %}
+        
+    
+
+
