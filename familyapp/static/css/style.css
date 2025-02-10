@@ -1,5 +1,5 @@
-.container {
-  max-width: 900px; /* Begrenzte Breite */
+.container{
+  max-width: 1200px; /* Begrenzte Breite */
   margin: 0 auto; /* Zentriert das Dashboard */
   text-align: center;
   display: flex; /* Flexbox aktivieren */

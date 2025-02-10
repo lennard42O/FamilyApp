@@ -1,14 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 
 from .models import ShoppingItem
 from .forms import ShoppingItemForm
 
 @login_required
 def shopping_list(request):
-    items = ShoppingItem.objects.filter(added_by=request.user)  # Nur Einträge des aktuellen Benutzers
-    return render(request, 'shopping/list.html', {'items': items})
+    # Hole alle Familienmitglieder (inklusive des aktuellen Benutzers)
+    family_members = request.user.family_members.all()
+    family_members = family_members | get_user_model().objects.filter(id=request.user.id)
 
+    # Hole alle Einträge der Familienmitglieder
+    items = ShoppingItem.objects.filter(added_by__in=family_members)
+    return render(request, 'shopping/list.html', {'items': items})
 @login_required
 def add_item(request):
     if request.method == "POST":
