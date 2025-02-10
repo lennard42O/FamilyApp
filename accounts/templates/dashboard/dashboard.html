@@ -4,61 +4,64 @@
 <div class="container mt-5">
     <h1 class="text-center">Willkommen, {{ request.user.username }}!</h1>
     <p class="text-center">Das ist dein Dashboard.</p>
-    <h3>Deine Familienmitglieder:</h3>
-    <ul class="list-group">
-        {% for member in family_members %}
-        <li class="list-group-item">{{ member.username }}</li>
-        {% empty %}
-        <li class="list-group-item">Keine Familienmitglieder hinzugefügt.</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'add-family-member' %}" class="btn btn-primary mt-3">Familienmitglied hinzufügen</a>
+
     <div class="mt-4">
       <!-- Hier kommt das Grid -->
       <div class="grid">
         <div class="card">
           {% load static %}
           <img
-            src="{% static 'img/list.png' %}"
+            src="{% static 'img/grocery_list_c.png' %}"
             class="card-img-top"
             alt="Einkaufsliste"
           />
           <div class="card-body">
-            <a href="../shopping" class="btn btn-primary">zur Einkaufsliste</a>
+            <a href="../shopping" class="btn btn-primary">Zur Einkaufsliste</a>
           </div>
         </div>
         <div class="card">
           <img
-            src="{% static 'img/list2.jpg' %}"
+            src="{% static 'img/chat_c.png' %}"
             class="card-img-top"
             alt="Einkaufsliste"
           />
           <div class="card-body">
-            <a href="../shopping" class="btn btn-primary">zur Einkaufsliste</a>
+            <a href="../shopping" class="btn btn-primary">Zum Familienchat</a>
           </div>
         </div>
         <div class="card">
           <img
-            src="{% static 'img/list.png' %}"
+            src="{% static 'img/essplaner_c.png' %}"
             class="card-img-top"
             alt="Einkaufsliste"
           />
           <div class="card-body">
-            <a href="../shopping" class="btn btn-primary">zur Einkaufsliste</a>
+            <a href="../shopping" class="btn btn-primary">Zum Essensplan</a>
           </div>
         </div>
         <div class="card">
           <img
-            src="{% static 'img/list.png' %}"
+            src="{% static 'img/calendar_c.png' %}"
             class="card-img-top"
             alt="Einkaufsliste"
           />
           <div class="card-body">
-            <a href="../shopping" class="btn btn-primary">zur Einkaufsliste</a>
+            <a href="../shopping" class="btn btn-primary"> Zum Kalender</a>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <h3>Deine Familienmitglieder:</h3>
+  <ul class="list-group">
+      {% for member in family_members %}
+      <li class="list-group-item">{{ member.username }}</li>
+      {% empty %}
+      <li class="list-group-item">Keine Familienmitglieder hinzugefügt.</li>
+      {% endfor %}
+  </ul>
+  <a href="{% url 'add-family-member' %}" class="btn btn-primary mt-3">Familienmitglied hinzufügen</a>
+  
+
   
 {% endblock %}
