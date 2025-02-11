@@ -22,8 +22,7 @@ def register(request):
 ## DASHBOARD ##
 @login_required
 def dashboard(request):
-    family_members = request.user.family_members.all()
-    return render(request, 'dashboard/dashboard.html', {'family_members': family_members})
+    return render(request, 'dashboard/dashboard.html',)
 
 ## ADD FAMILY MEMBER ##
 @login_required
@@ -33,7 +32,7 @@ def add_family_members(request):
         try:
             new_member = get_user_model().objects.get(username=username)
             request.user.family_members.add(new_member)
-            return redirect("dashboard")
+            return redirect("settings")
         except get_user_model().DoesNotExist:
             error ="Benutzer nicht gefunden."
             return render(request, "accounts/add_family_member.html", {"error: error"})
@@ -44,6 +43,8 @@ def add_family_members(request):
 ## Settings ## 
 @login_required
 def settings(request):
+    family_members = request.user.family_members.all()
+
     user_settings, created = UserSettings.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
@@ -72,4 +73,4 @@ def settings(request):
         'settings_form': settings_form,
         'password_form': password_form,
         'user_form': user_form,
-    })
+    'family_members': family_members})

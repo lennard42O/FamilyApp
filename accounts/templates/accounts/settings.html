@@ -31,6 +31,16 @@
         <button type="submit" name="change_password" class="btn btn-primary">Passwort speichern</button>
     </form>
 
+    <h2 class= "mt-4">Deine Familienmitglieder:</h2>
+    
+    <ul class="list-group">
+        {% for member in family_members %}
+        <li class="list-group-item">{{ member.username }}</li>
+        {% empty %}
+        <li class="list-group-item">Keine Familienmitglieder hinzugefügt.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add-family-member' %}" class="btn btn-primary mt-3">Familienmitglied hinzufügen</a>
     
 </div>
 {% endblock %}
