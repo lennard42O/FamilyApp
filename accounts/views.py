@@ -4,7 +4,8 @@ from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from .models import UserSettings
-from .forms import UserSettingsForm
+from .forms import UserSettingsForm, CustomUserChangeForm
+
 
 ## REGISTER ##
 
@@ -37,6 +38,9 @@ def add_family_members(request):
             error ="Benutzer nicht gefunden."
             return render(request, "accounts/add_family_member.html", {"error: error"})
     return render(request,"accounts/add_family_member.html")
+
+
+
 ## Settings ## 
 @login_required
 def settings(request):
@@ -62,7 +66,7 @@ def settings(request):
     else:
         settings_form = UserSettingsForm(instance=user_settings)
         password_form = PasswordChangeForm(request.user)
-        user_form = UserChangeForm(instance=request.user)
+        user_form = CustomUserChangeForm(instance=request.user)
 
     return render(request, 'accounts/settings.html', {
         'settings_form': settings_form,

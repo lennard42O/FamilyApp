@@ -11,6 +11,17 @@
         {{ settings_form.as_p }}
         <button type="submit" name="change_design" class="btn btn-primary">Design speichern</button>
     </form>
+       
+    
+    <!-- Benutzername und E-Mail ändern -->
+
+    <h2 class="mt-4">Benutzername und E-Mail ändern</h2>
+    <form method="post" class="mb-4">
+        {% csrf_token %}
+        <p>{{ user_form.username.label_tag }} {{ user_form.username }}</p>
+        <p>{{ user_form.email.label_tag }} {{ user_form.email }}</p>
+        <button type="submit" name="change_username_email" class="btn btn-primary">Änderungen speichern</button>
+    </form>
 
     <!-- Passwort ändern -->
     <h2 class="mt-4">Passwort ändern</h2>
@@ -20,7 +31,6 @@
         <button type="submit" name="change_password" class="btn btn-primary">Passwort speichern</button>
     </form>
 
-    <!-- Benutzername und E-Mail ändern -->
     
 </div>
 {% endblock %}
