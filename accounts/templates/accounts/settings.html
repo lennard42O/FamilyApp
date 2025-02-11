@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Einstellungen ⚙️</h1>
+
+    <!-- Design-Einstellungen -->
+    <h2 class="mt-4">Design anpassen</h2>
+    <form method="post" class="mb-4">
+        {% csrf_token %}
+        {{ settings_form.as_p }}
+        <button type="submit" name="change_design" class="btn btn-primary">Design speichern</button>
+    </form>
+
+    <!-- Passwort ändern -->
+    <h2 class="mt-4">Passwort ändern</h2>
+    <form method="post" class="mb-4">
+        {% csrf_token %}
+        {{ password_form.as_p }}
+        <button type="submit" name="change_password" class="btn btn-primary">Passwort speichern</button>
+    </form>
+
+    <!-- Benutzername und E-Mail ändern -->
+    
+</div>
+{% endblock %}
