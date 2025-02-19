@@ -3,6 +3,16 @@
 {% block content %}
 <div class="container mt-5">
     <h1>Einstellungen ⚙️</h1>
+        <!-- Profilbild -->
+    <h2 class="mt-4">Profilbild</h2>
+    {% if request.user.profile_picture %}
+    <img src="{{ request.user.profile_picture.url }}" alt="Profilbild" class="img-thumbnail mb-3" style="max-width: 200px;">
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ profile_picture_form.as_p }}
+        <button type="submit" name="change_profile_picture" class="btn btn-primary">Profilbild speichern</button>
+    </form>
 
     <!-- Design-Einstellungen -->
     <h2 class="mt-4">Design anpassen</h2>

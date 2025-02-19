@@ -14,6 +14,10 @@ environ.Env.read_env()
 # Basisverzeichnis der Anwendung
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Mediaverzeichnis
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Sicherheitsvariablen
 SECRET_KEY = env("SECRET_KEY", default="change-me")  # Fallback für Sicherheit
 DEBUG = env.bool("DEBUG", default=True)
@@ -21,8 +25,8 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
 
 # Anwendungsdefinition
 INSTALLED_APPS = [
-    "shopping",
     "accounts",
+    "shopping",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -114,7 +118,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Benutzerdefiniertes User-Modell
 AUTH_USER_MODEL = 'accounts.CustomUser'
-
 
 # Weiterleitung nach dem Login
 LOGIN_REDIRECT_URL = '/'

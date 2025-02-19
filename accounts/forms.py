@@ -8,8 +8,14 @@ from .models import CustomUser
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-
         fields= ("username", "email", "password1","password2")
+
+class ProfilePictureForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['profile_picture']  # Nur das Profilbild-Feld wird im Formular angezeigt
+
+
 class UserSettingsForm(forms.ModelForm):
     class Meta:
         model =  UserSettings
