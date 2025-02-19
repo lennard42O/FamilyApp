@@ -1,70 +1,74 @@
 {% extends "base.html" %}
 {% block styles %}
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-  <h1 class="text-center">Willkommen, {{ request.user.username }}!</h1>
-  <p class="text-center">Das ist dein Dashboard.</p>
+    <h1 class="text-center">Willkommen, {{ request.user.username }}!</h1>
+    <p class="text-center">Das ist dein Dashboard.</p>
 
-  <div class="mt-4">
-    <!-- Hier kommt das Grid -->
-    <div class="grid">
-      <div class="card clickable-card" data-href="../shopping">
-        {% load static %}
-        <img
-          src="{% static 'img/grocery_list_c.png' %}"
-          class="card-img-top"
-          alt="Einkaufsliste"
-        />
-        <div class="card-body">
-          <a href="../shopping" class="btn btn-primary">Zur Einkaufsliste</a>
+    <div class="mt-4">
+      <!-- Hier kommt das Grid -->
+      <div class="grid">
+        <div class="card clickable-card" data-href="../shopping">
+          {% load static %}
+          <img
+            src="{% static 'img/grocery_list_c.png' %}"
+            class="card-img-top"
+            alt="Einkaufsliste"
+          />
+          <div class="card-body">
+            <a href="../shopping" class="btn btn-primary">Zur Einkaufsliste</a>
+          </div>
         </div>
-      </div>
-      <div class="card clickable-card" data-href="../shopping">
-        <img
-          src="{% static 'img/chat_c.png' %}"
-          class="card-img-top"
-          alt="Einkaufsliste"
-        />
-        <div class="card-body">
-          <a href="../shopping" class="btn btn-primary">Zum Familienchat</a>
+        <div class="card clickable-card" data-href="../shopping">
+          <img
+            src="{% static 'img/chat_c.png' %}"
+            class="card-img-top"
+            alt="Einkaufsliste"
+          />
+          <div class="card-body">
+            <a href="../shopping" class="btn btn-primary">Zum Familienchat</a>
+          </div>
         </div>
-      </div>
-      <div class="card clickable-card" data-href="../shopping">
-        <img
-          src="{% static 'img/essplaner_c.png' %}"
-          class="card-img-top"
-          alt="Einkaufsliste"
-        />
-        <div class="card-body">
-          <a href="../shopping" class="btn btn-primary">Zum Essensplan</a>
+        <div class="card clickable-card" data-href="../shopping">
+          <img
+            src="{% static 'img/essplaner_c.png' %}"
+            class="card-img-top"
+            alt="Einkaufsliste"
+          />
+          <div class="card-body">
+            <a href="../shopping" class="btn btn-primary">Zum Essensplan</a>
+          </div>
         </div>
-      </div>
-      <div class="card clickable-card" data-href="../shopping">
-        <img
-          src="{% static 'img/calendar_c.png' %}"
-          class="card-img-top"
-          alt="Einkaufsliste"
-        />
-        <div class="card-body">
-          <a href="../shopping" class="btn btn-primary"> Zum Kalender</a>
+        <div class="card clickable-card" data-href="../shopping">
+          <img
+            src="{% static 'img/calendar_c.png' %}"
+            class="card-img-top"
+            alt="Einkaufsliste"
+          />
+          <div class="card-body">
+            <a href="../shopping" class="btn btn-primary"> Zum Kalender</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const cards = document.querySelectorAll(".clickable-card");
-    cards.forEach(card => {
-      card.addEventListener("click", function() {
-        window.location.href = this.dataset.href;
+    
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const cards = document.querySelectorAll(".clickable-card");
+      cards.forEach(card => {
+        card.addEventListener("click", function() {
+          window.location.href = this.dataset.href;
+        });
       });
     });
-  });
-</script>
+  </script>
+  
+
+  
 {% endblock %}

@@ -20,7 +20,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Benutzer erfolgreich registriert!")  
-            return redirect("login")  # Redirect to login after registration
+            return redirect("login")  
         else:
             messages.error(request, "Bitte korrigiere die Fehler im Formular.")
     else:
