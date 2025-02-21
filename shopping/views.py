@@ -7,13 +7,12 @@ from .forms import ShoppingItemForm
 
 @login_required
 def shopping_list(request):
-    # Hole alle Familienmitglieder (inklusive des aktuellen Benutzers)
     family_members = request.user.family_members.all()
     family_members = family_members | get_user_model().objects.filter(id=request.user.id)
 
-    # Hole alle Einträge der Familienmitglieder
     items = ShoppingItem.objects.filter(added_by__in=family_members)
     return render(request, 'shopping/list.html', {'items': items})
+
 @login_required
 def add_item(request):
     if request.method == "POST":
@@ -29,13 +28,19 @@ def add_item(request):
 
 @login_required
 def toggle_item(request, item_id):
-    item = get_object_or_404(ShoppingItem, id=item_id, added_by=request.user)
+    family_members = request.user.family_members.all()
+    family_members = family_members | get_user_model().objects.filter(id=request.user.id)
+
+    item = get_object_or_404(ShoppingItem, id=item_id, added_by__in=family_members)
+        
     item.completed = not item.completed
     item.save()
     return redirect("shopping-list")
 
 @login_required
 def delete_item(request, item_id):
-    item = get_object_or_404(ShoppingItem, id =item_id, added_by=request.user)
+    family_members = request.user.family_members.all()
+    family_members = family_members | get_user_model().objects.filter(id=request.user.id)
+    item = get_object_or_404(ShoppingItem, id =item_id, added_by__in=family_members)
     item.delete()
     return redirect("shopping-list")

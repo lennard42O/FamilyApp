@@ -32,7 +32,8 @@ def register(request):
 @login_required
 def dashboard(request):
     return render(request, "dashboard/dashboard.html")
-
+def e404(request):
+    return render(request, "e404.html")
 
 ## ADD FAMILY MEMBER ##
 @login_required
@@ -44,7 +45,7 @@ def add_family_members(request):
             request.user.family_members.add(new_member)
             messages.success(
                 request, f"{new_member.username} wurde zur Familie hinzugefügt!"
-            )  # Optional
+            ) 
             return redirect("settings")
         except get_user_model().DoesNotExist:
             messages.error(request, "Benutzer nicht gefunden.")

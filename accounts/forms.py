@@ -13,13 +13,13 @@ class CustomUserCreationForm(UserCreationForm):
 class ProfilePictureForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['profile_picture']  # Nur das Profilbild-Feld wird im Formular angezeigt
+        fields = ['profile_picture']  
 
 
 class UserSettingsForm(forms.ModelForm):
     class Meta:
         model =  UserSettings
-        fields = ["design", "icons"]
+        fields = ["design"]
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
