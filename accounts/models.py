@@ -9,6 +9,17 @@ from django.core.files.base import ContentFile
 import uuid
 
 
+
+class Family(models.Model):
+    name = models.CharField(max_lenght=100, unique=True,verbose_name="Familienname")
+    admin = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="admin_of_families", verbose_name="Admin")
+    members = models.ManyToManyField(get_user_model(), related_name="families", blank=True,verbose_name="Mitglieder")
+    created_at= models.DateTimeField(auto_now_add=True, verbose_name="Erstellt am")
+
+    def __str__(self):
+        return self.name
+
+
 class CustomUser(AbstractUser):
     family_members = models.ManyToManyField("self", symmetrical=False, blank=True, verbose_name="Familienmitglieder")
     profile_picture = models.ImageField(
