@@ -1,24 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.core.files.storage import default_storage
-import os
+from django.core.files.base import ContentFile
 from PIL import Image
 from io import BytesIO
-from django.core.files.base import ContentFile
-import uuid
-
-
-
-class Family(models.Model):
-    name = models.CharField(max_lenght=100, unique=True,verbose_name="Familienname")
-    admin = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="admin_of_families", verbose_name="Admin")
-    members = models.ManyToManyField(get_user_model(), related_name="families", blank=True,verbose_name="Mitglieder")
-    created_at= models.DateTimeField(auto_now_add=True, verbose_name="Erstellt am")
-
-    def __str__(self):
-        return self.name
-
 
 class CustomUser(AbstractUser):
     family_members = models.ManyToManyField("self", symmetrical=False, blank=True, verbose_name="Familienmitglieder")
@@ -68,14 +53,25 @@ class CustomUser(AbstractUser):
                 self.profile_picture = None
             
         super().save(*args, **kwargs)
+
     def delete(self, *args, **kwargs):
         if self.profile_picture:
             default_storage.delete(self.profile_picture.name)
         super().delete(*args, **kwargs)
 
 
+class Family(models.Model):
+    name = models.CharField(max_length=100, unique=True, verbose_name="Familienname")
+    admin = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="admin_of_families", verbose_name="Admin")
+    members = models.ManyToManyField(CustomUser, related_name="families", blank=True, verbose_name="Mitglieder")
+    created_at= models.DateTimeField(auto_now_add=True, verbose_name="Erstellt am")
+
+    def __str__(self):
+        return self.name
+
+
 class UserSettings(models.Model):
-    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, related_name="settings")
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="settings")
     design = models.CharField(
         max_length=10,
         choices=[
