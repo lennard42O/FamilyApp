@@ -57,6 +57,7 @@ def add_family_members(request):
 @login_required
 def settings(request):
     user_settings, created = UserSettings.objects.get_or_create(user=request.user)
+    family_members = request.user.family_members.all()
 
     settings_form = UserSettingsForm(instance=user_settings)
     password_form = PasswordChangeForm(request.user)
@@ -111,5 +112,6 @@ def settings(request):
             "password_form": password_form,
             "user_form": user_form,
             "profile_picture_form": profile_picture_form,
+            "family_members": family_members,
         },
     )

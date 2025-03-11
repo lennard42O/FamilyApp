@@ -82,6 +82,11 @@ class UserSettings(models.Model):
         default="colored",
         verbose_name="Design"
     )
+    icons = models.CharField(  # Add this field
+        max_length=50,
+        default="default",  # Provide an appropriate default
+        verbose_name="Icons"
+    )
 
     def __str__(self):
         return f"Einstellungen für {self.user.username}"

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block title %} Settings {% endblock %} 
 
 {% block content %}
 <div class="container mt-5">
@@ -28,8 +29,10 @@
     <h2 class="mt-4">Benutzername und E-Mail ändern</h2>
     <form method="post" class="mb-4">
         {% csrf_token %}
-        <p>{{ user_form.username.label_tag }} {{ user_form.username }}</p>
-        <p>{{ user_form.email.label_tag }} {{ user_form.email }}</p>
+        <p>{{ user_form.username.label_tag }} </p>
+        <p>  {{ user_form.username }}</p>
+        <p>{{ user_form.email.label_tag }} </p>
+        <p>   {{ user_form.email }}</p>
         <button type="submit" name="change_username_email" class="btn btn-primary">Änderungen speichern</button>
     </form>
 
@@ -41,6 +44,11 @@
         <button type="submit" name="change_password" class="btn btn-primary">Passwort speichern</button>
     </form>
 
+    <!-- Familienmitglieder  -->
+     <div class="row">
+        <div class="col-md-3">
+
+     
     <h2 class= "mt-4">Deine Familienmitglieder:</h2>
     
     <ul class="list-group">
@@ -51,6 +59,8 @@
         {% endfor %}
     </ul>
     <a href="{% url 'add-family-member' %}" class="btn btn-primary mt-3">Familienmitglied hinzufügen</a>
+</div>
+</div>
     
 </div>
 {% endblock %}
