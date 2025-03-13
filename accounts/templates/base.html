@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- Verknüpfungen -->
+
 {% load static %}
 <html lang="de">
 <head>
@@ -25,11 +27,9 @@
             <div class="navbar-nav ms-auto">
                 <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {% if request.user.profile_picture %}
-                            <img src="{{ request.user.profile_picture.url }}" alt="Profilbild" class="rounded-circle" style="width: 40px; height: 40px;">
-                        {% else %}
-                            <img src="{% static 'img/default_profile.png' %}" alt="Profilbild" class="rounded-circle" style="width: 40px; height: 40px;">
-                        {% endif %}
+                        
+                        {% include "essentials.html" %}
+                        {% block photo %} {% endblock %}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         {% if user.is_authenticated %}

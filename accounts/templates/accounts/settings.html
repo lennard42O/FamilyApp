@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block title %} Settings {% endblock %} 
+{% block styles %}
+    {% load static %}
+{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
@@ -49,7 +52,7 @@
         <div class="col-md-3">
 
      
-    <h2 class= "mt-4">Deine Familienmitglieder:</h2>
+    <h2 >Deine Familienmitglieder</h2>
     
     <ul class="list-group">
         {% for member in family_members %}
@@ -57,10 +60,32 @@
         {% empty %}
         <li class="list-group-item">Keine Familienmitglieder hinzugefügt.</li>
         {% endfor %}
+        
+        {% if error %}
+        <li class="list-group-item">
+            <div class="alert alert-danger">{{ error }}</div>
+        </li>
+        {% endif %}
+        
+        <li class="list-group-item p-0">
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" 
+                           name="username" 
+                           class="form-control" 
+                           id="username" 
+                           placeholder="Benutzer hinzufügen" 
+                           required>
+                    <button type="submit" class="btn btn-outline-success">Hinzufügen</button>
+                </div>
+            </form>
+        </li>
     </ul>
-    <a href="{% url 'add-family-member' %}" class="btn btn-primary mt-3">Familienmitglied hinzufügen</a>
 </div>
 </div>
-    
-</div>
+
+
+            
+
 {% endblock %}
