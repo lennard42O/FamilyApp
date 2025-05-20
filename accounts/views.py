@@ -106,7 +106,7 @@ def settings(request):
 
     return render(
         request,
-        "accounts/beta_settings.html",
+        "accounts/settings.html",
         {
             "settings_form": settings_form,
             "password_form": password_form,
@@ -117,4 +117,4 @@ def settings(request):
     )
 
 def beta_settings(request):
-    return render(request, "accounts/settings.html")    
+    return render(request, "accounts/beta_settings.html")    

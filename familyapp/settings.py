@@ -17,7 +17,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Mediaverzeichnis
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 # Sicherheitsvariablen
 SECRET_KEY = env("SECRET_KEY", default="change-me")  # Fallback für Sicherheit
 DEBUG = env.bool("DEBUG", default=True)
@@ -103,16 +102,9 @@ USE_I18N = True
 USE_TZ = True
 
 # Statische Dateien
-STATIC_URL = "/static/"  
-
-# Django sagen, wo der 'static/'-Ordner liegt
-STATICFILES_DIRS = [
-    BASE_DIR / "familyapp" / "static",  # Den Pfad zur Static-Ordner anpassen
-]
-
-# Wohin 'collectstatic' die Dateien speichert
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # for collectstatic
 # Primärer Schlüsseltyp
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

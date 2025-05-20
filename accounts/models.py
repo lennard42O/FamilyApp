@@ -4,6 +4,7 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from PIL import Image
 from io import BytesIO
+import os
 
 class CustomUser(AbstractUser):
     family_members = models.ManyToManyField("self", symmetrical=False, blank=True, verbose_name="Familienmitglieder")
@@ -15,43 +16,41 @@ class CustomUser(AbstractUser):
     )
 
     def save(self, *args, **kwargs):
-        old_profile_picture = None
-        if self.pk:
+        is_new_user = self.pk is None
+
+        # Temporär Bild sichern
+        original_picture = self.profile_picture
+
+        if not is_new_user:
             try:
                 old_user = CustomUser.objects.get(pk=self.pk)
-                old_profile_picture = old_user.profile_picture
+                if old_user.profile_picture and old_user.profile_picture != self.profile_picture:
+                    default_storage.delete(old_user.profile_picture.name)
             except CustomUser.DoesNotExist:
                 pass
 
-        if not self.pk:
+        # Erstmal ohne Bild speichern, um PK zu bekommen
+        if is_new_user:
+            temp_picture = self.profile_picture
+            self.profile_picture = None
             super().save(*args, **kwargs)
+            self.profile_picture = temp_picture
 
-        if old_profile_picture and old_profile_picture != self.profile_picture:
+        # Bild verarbeiten, falls vorhanden
+        if original_picture:
             try:
-                default_storage.delete(old_profile_picture.name)
-            except FileNotFoundError:
-                import logging
-                logger = logging.getLogger(__name__)
-                logger.error(f"Old profile picture not found for user {self.username}")
+                image = Image.open(original_picture)
+                if image.mode != 'RGB':
+                    image = image.convert('RGB')
 
-        if self.profile_picture:
-            try:
-                filename = f"{self.pk}_img.png"
-
-                if not self.profile_picture.name.endswith('.png'):
-                    image = Image.open(self.profile_picture)
-                    if image.mode != 'RGB':
-                        image = image.convert('RGB')
-                    buffer = BytesIO()
-                    image.save(buffer, format='PNG')
-                    self.profile_picture.save(filename, ContentFile(buffer.getvalue()), save=False)
-                else:
-                    self.profile_picture.name = filename
-
-                self.profile_picture.save(self.profile_picture.name, self.profile_picture.file, save=False)
-            except FileNotFoundError:
+                buffer = BytesIO()
+                image.save(buffer, format='PNG')
+                filename = f"profile_pictures/{self.pk}_img.png"
+                self.profile_picture.save(filename, ContentFile(buffer.getvalue()), save=False)
+            except Exception as e:
+                print(f"[Fehler beim Bildverarbeiten] {e}")
                 self.profile_picture = None
-            
+
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
